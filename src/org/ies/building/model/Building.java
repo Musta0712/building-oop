@@ -5,13 +5,56 @@ import java.util.Objects;
 
 public class Building {
     private String address;
-    private String town;
+    private String city;
     private Apartament[] apartaments;
 
-    public Building(String address, String town, Apartament[] apartaments) {
+    public Building(String address, String city, Apartament[] apartaments) {
         this.address = address;
-        this.town = town;
+        this.city = city;
         this.apartaments = apartaments;
+    }
+
+    public void showInfo(){
+        System.out.println("Dirección: " + address + " Municipio: " + city + "Nº de Apartamentos: ");
+        for (var apartament: apartaments){
+            showInfo();
+        }
+    }
+
+    // Dado una planta y una puerta devuelve el apartamento de esa planta y puerta. Si no
+    // existe dicho apartamento devuvle null.
+
+    public Apartament findAppartment (int floor, String doorway){
+        for (var appartment : apartaments){
+            if (appartment.getFloor() == (floor) && appartment.getDoorway().equals(doorway)) {
+                return appartment;
+            }
+        }
+        return null;
+    }
+
+    //showFloorApartments(int floor): Dado un número de planta, muestra los
+    //apartamentos de esa planta
+
+    public void showFloorAppartments(int floor){
+        for (var apartament : apartaments){
+            if (apartament.getFloor() == floor){
+                apartament.showInfo();
+            }
+        }
+    }
+
+    //findOwners(int floor, String door): Dado una planta y una puerta, devuelve
+    //  los propietarios del apartamento de esa puerta y planta. Si no existe dicho
+    //  apartamento devuelve null.
+
+    public Owner[] findAppartmentOwners(int floor, String doorway){
+        var appartment = findAppartment(floor, doorway);
+        if(appartment == null){
+            return null;
+        }else {
+            return appartment.getOwners();
+        }
     }
 
     public String getAddress() {
@@ -23,11 +66,11 @@ public class Building {
     }
 
     public String getTown() {
-        return town;
+        return city;
     }
 
     public void setTown(String town) {
-        this.town = town;
+        this.city = town;
     }
 
     public Apartament[] getApartaments() {
@@ -43,19 +86,19 @@ public class Building {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Building building = (Building) o;
-        return Objects.equals(address, building.address) && Objects.equals(town, building.town) && Objects.deepEquals(apartaments, building.apartaments);
+        return Objects.equals(address, building.address) && Objects.equals(city, building.city) && Objects.deepEquals(apartaments, building.apartaments);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(address, town, Arrays.hashCode(apartaments));
+        return Objects.hash(address, city, Arrays.hashCode(apartaments));
     }
 
     @Override
     public String toString() {
         return "Building{" +
                 "address='" + address + '\'' +
-                ", town='" + town + '\'' +
+                ", town='" + city + '\'' +
                 ", apartaments=" + Arrays.toString(apartaments) +
                 '}';
     }

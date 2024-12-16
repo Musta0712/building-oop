@@ -4,22 +4,29 @@ import java.util.Arrays;
 import java.util.Objects;
 
 public class Apartament {
-    private int tier;
+    private int floor;
     private String doorway;
     private Owner[] owners;
 
-    public Apartament(int tier, String doorway, Owner[] owners) {
-        this.tier = tier;
+    public Apartament(int floor, String doorway, Owner[] owners) {
+        this.floor = floor;
         this.doorway = doorway;
         this.owners = owners;
     }
 
-    public int getTier() {
-        return tier;
+    public void showInfo(){
+        System.out.println("Planta: " + floor + "N de puerta:"  + doorway + "Información de los propietarios: ");
+        for(var owner: owners){
+            owner.showInfo();
+        }
     }
 
-    public void setTier(int tier) {
-        this.tier = tier;
+    public int getFloor() {
+        return floor;
+    }
+
+    public void setFloor(int floor) {
+        this.floor = floor;
     }
 
     public String getDoorway() {
@@ -43,18 +50,18 @@ public class Apartament {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Apartament that = (Apartament) o;
-        return tier == that.tier && Objects.equals(doorway, that.doorway) && Objects.deepEquals(owners, that.owners);
+        return floor == that.floor && Objects.equals(doorway, that.doorway) && Objects.deepEquals(owners, that.owners);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(tier, doorway, Arrays.hashCode(owners));
+        return Objects.hash(floor, doorway, Arrays.hashCode(owners));
     }
 
     @Override
     public String toString() {
         return "Apartament{" +
-                "tier=" + tier +
+                "tier=" + floor +
                 ", doorway='" + doorway + '\'' +
                 ", owners=" + Arrays.toString(owners) +
                 '}';
